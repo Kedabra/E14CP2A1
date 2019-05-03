@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Companies</h1>
+  <table class="table container-fluid">
+    <thead>
+      <th>Name</th>
+      <th>N° of Employees</th>
+      <th colspan="3">Options</th>
+    </thead>
+
+    <tbody>
+      <% @companies.each do |company| %>
+        <tr>
+          <td><%= link_to "#{company.name}", company %></td>
+          <td><%= company.employees.count %></td>
+          <%company_areas = {}
+            company.employees.each do |employee|
+            if company_areas.key?(employee.area.name)
+              company_areas[employee.area.name] += 1
+            else
+              company_areas[employee.area.name] = 1
+            end
+            end%>
+            
+        <% company_areas.each do |key, value| %>
+          <td><%= key %>: <%= value %></td>
+        <% end %>
+          <td class="btn-group">
+            <%= link_to 'Show', company, class:"btn btn-info" %>
+            <%= link_to 'Edit', edit_company_path(company), class:"btn btn-warning" %>
+            <%= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<br>
+
+<%= link_to 'New Company', new_company_path %>

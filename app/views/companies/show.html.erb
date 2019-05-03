@@ -1,0 +1,30 @@
+  <h1>Company Name: <%= @company.name %></h1>
+  <p id="notice"><%= notice %></p>
+  <h2>New Employee Form:</h2>
+  <%= render 'employe_form', company: @company %>
+  <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Area</th>
+        <th>Options</th>
+      </tr>
+    <% @company.employees.each do |employee|%>
+      <tr>
+        <td><%= employee.id %></td>
+        <td><%= employee.first_name %></td>
+        <td><%= employee.last_name %></td>
+        <td><%= employee.email %></td>
+        <td><%= employee.area.name %></td>
+        <td><%= link_to 'Destroy', company_employee_path(@company, employee), method: :delete,
+                        data: { confirm: 'Are you sure? Like really? D:' }, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+
+  <%= link_to 'Edit', edit_company_path(@company) %>
+  <%= link_to 'Back', companies_path %>
